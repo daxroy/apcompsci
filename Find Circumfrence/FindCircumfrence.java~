@@ -1,0 +1,14 @@
+/* Find Circumfrence
+ * By Dax Roy
+ * September 14th, 2019 */
+
+public class Find Circumfrence
+{
+  public static void (circumfrence)
+  {
+    double pi = 3.14 ;
+    double radius = 3.5 ;
+    circumfrence = 2*pi*radius ;
+    System.out.println("The circumfrence of this circle = "+circumfrence);
+  }  
+}

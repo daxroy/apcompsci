@@ -1,0 +1,31 @@
+public class chatBot {
+  int age;
+  String name;
+  String place;
+  String username;
+  
+  public chatBot() {
+    age = 16;
+    name = "Dax";
+    place = "boomer education center";
+  }
+  
+  public String greeting() {
+    return ("Hello, what is your name?");
+  }
+  
+  public String setUsername(String n) {
+    username = n;
+    return "Nice to meet you "+username+"!";
+  }
+  
+  public String getUsername() {
+    return username;
+  }
+  
+  public String whatResponse(String phrase) {
+    if (phrase.indexOf("name") == true)
+      return "My name is " + name.chatBot()+".";
+    if (phrase.indexOf("age") ==true)
+      return "I am "+age.chatBot()+" years old.";
+    if (phrase.indexOf(

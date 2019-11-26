@@ -1,0 +1,26 @@
+public class Die
+{
+  private int numOfFaces;
+  private int faceValue;
+
+  public Die() {
+  numOfFaces = 6;
+  faceValue = (int)(Math.random()*6+1);
+  }
+  public Die(int f) {
+    numOfFaces = f;
+    faceValue = math.Random()*f+1;
+  }
+  public int getFaceValue()
+  {
+    return numOfFaces;
+  }
+  public void roll()
+  {
+    faceValue = (int)(Math.random()*numOfFaces+1);
+  }
+  public String toString()
+  {
+    return "Number of faces = "+numOfFaces+"\n Face Value = "+faceValue;
+  }
+}

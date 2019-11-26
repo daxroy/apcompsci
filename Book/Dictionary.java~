@@ -1,0 +1,24 @@
+public class Dictionary {
+  private int pages;
+  private int definitions;
+  
+  public Dictionary() {
+    pages = 500;
+    definitions =52500;
+  }
+  
+  public int getPages() {
+    return pages;
+  }
+  
+  public double getDefPerPage(double x) {
+    return "There are about "+ (double)definitions/pages+ " definitions per page";
+  }
+  public void setPages(int p) {
+    pages = p;
+  }
+  
+  public String toString() {
+    return "This dictionary has "+ pages +" pages.";
+  }
+}

@@ -1,0 +1,48 @@
+public class Coin {
+  private boolean faceValueHead;
+  private static int numOfCoins = 0;
+  
+  public Coin() {
+   toss();
+   numOfCoins++;
+  }
+  
+  public Coin(boolean t){
+    if (t = true)
+      faceValueHead = true;
+    else
+      faceValueHead = false;
+    numOfCoins++
+  }
+  
+  public boolean isHead() {
+    return faceValueHead;
+  }
+  
+  public toss() {
+     int num = (int)(Math.random()*1,-1);
+    if (num > 0)
+      faceValueHead = true;
+    else
+      faceValueHead = false;
+  }
+  
+  public string toString() {
+    if (faceValueHead == true) 
+      String result = "Heads";
+    else
+      String result = "Tails";
+  }
+  
+  public boolean equals(Coin other) {
+    if (faceValueHead == other.faceValueHead)
+      boolean output = true;
+    else
+      boolean output = false;
+  }
+  
+  public static int getNumOfCoins() {
+    return numOfCoins;
+  }
+  
+}

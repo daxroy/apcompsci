@@ -1,0 +1,8 @@
+public class Tester {
+  public static void main(String[] args) {
+    Book book1 = new book();
+    Dictionary dictionary1 = new dictionary();
+    System.out.println(book1);
+    System.out.println(Dictionary1);
+  }
+}
