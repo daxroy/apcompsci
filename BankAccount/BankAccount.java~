@@ -1,53 +1,23 @@
 public class BankAccount
 {
-  public static void main(String [] args)
-  {
-    public int id;
-    private String name;
-    private double balance;
-   
-  public BankAccount()
-  {
-    id = -1;
-    name = "John Smith";
+  private String name;
+  private int balance;
+  private double interest;
+  public BankAccount() {
+    name = "Unknown";
     balance = 0;
-  }
-   
-  public BankAccount(int i, String n, double b)
-  {
-    id = i;
+    interest = 0.001;
+ }
+  
+  public BankAccount(String n, int b) {
     name = n;
     balance = b;
-  }
- 
- 
-  public String toString()
-  {
-    return id + "\t" + name + "\balance =" + balance;    
-  }
-
- 
-  public boolean equals(BankAccount other)
-  {
-    return balance == other.getBalance();
-  }
- 
- 
-  public double getBalance()
-  {
-    return balance;
-  }
- 
- 
-  public void deposit(double d)
-  {
-    balance = balance + d;
-  }
- 
-  public void withdraw(double w)
-  {
-    balance = balance - w;
-  }
- 
-  }
+    interest = 0.001;
+ }
+  
+  public BankAccount(String n, int b, double i) {
+    name = n;
+    balance = b;
+    interest = i;
+ }
 }
