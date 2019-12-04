@@ -1,0 +1,45 @@
+public class Square extends Rectangle {
+  private static int getNumOfSquares;
+  
+  public Square() {
+    super();
+    setS1(1);
+    setS2(1);
+    setS3(1);
+    setS4(1);
+  }
+  
+  public Square(double l) {
+    super();
+    setS1(l);
+    setS2(l);
+    setS3(l);
+    setS4(l);
+  }
+  
+  public static int getNumOfSquares() {
+    return numOfSquares;
+  }
+  
+  public double getSide(){
+    getS1();
+  }
+  
+  public void setSide(double l) {
+    setS1(l);
+    setS2(l);
+    setS3(l);
+    setS4(l);
+  }
+  
+  public boolean equals(Square other) {
+    if (getSide() == other.getSide()) 
+      return true;
+    else
+      return false;
+  }
+  
+  public String toString() {
+    return "A square with side length: "+getSide()+"\n Perimeter: "+getPerimeter()+"\n Area: "+getArea();
+  }
+}
