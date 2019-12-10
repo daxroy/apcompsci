@@ -1,0 +1,11 @@
+import java.util.array
+public class ArrayManager {
+  public static void main(String[] args) {
+    String[] strs = {"Dax", "Taz", "Ethan", "Itamar",null,null,null,null};
+    System.out.println(Arrays.toString(strs));
+  }
+  
+  public static void removeAtIndex(String[] strs, int index) {
+    
+  }
+}
