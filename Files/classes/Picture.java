@@ -106,7 +106,8 @@ public class Picture extends SimplePicture
     {
       for (Pixel pixelObj : rowArray)
       {
-        pixelObj.setGreen(255);
+         pixelObj.setBlue(0);
+         pixelObj.setRed(0);
       }
     }
   }
@@ -115,13 +116,13 @@ public class Picture extends SimplePicture
   public void negate()
   {
     Pixel[][] pixels = this.getPixels2D();
-    for (Pixel[] rowArray : pixels)
+    for ( Pixel[] rowArray : pixels )
     {
-      for (Pixel pixelObj : rowArray)
+      for ( Pixel pixelObj : rowArray )
       {
-        pixelObj.setBlue(255-getBlue());
-        pixelObj.setRed(255-getRed());
-        pixelObj.setGreen(255-getGreen());
+        pixelObj.setRed( 255 - pixelObj.getRed() );
+        pixelObj.setGreen( 255 - pixelObj.getGreen());
+        pixelObj.setBlue( 255 - pixelObj.getBlue());
       }
     }
   }
@@ -133,10 +134,11 @@ public class Picture extends SimplePicture
     for (Pixel[] rowArray : pixels)
     {
       for (Pixel pixelObj : rowArray)
-      {
-        pixelObj.setGreen((getGreen()+getBlue()+getRed())/3);
-        pixelObj.setBlue((getGreen()+getBlue()+getRed())/3);
-        pixelObj.setRed((getGreen()+getBlue()+getRed())/3);
+      {   
+        int avg = (int)((pixelObj.getRed() + pixelObj.getGreen() + pixelObj.getBlue()) / 3);
+        pixelObj.setRed(avg);
+        pixelObj.setBlue(avg);
+        pixelObj.setGreen(avg);
       }
     }
   }
@@ -144,65 +146,243 @@ public class Picture extends SimplePicture
   /** Method to make the shape of the fish stand out  */
   public void enhanceFish()
   {
-    //add your code here
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel pixel = null;
+    for (int row = 0; row < pixels.length; row++)
+    {
+      for (int col = 0; col < pixels[0].length; col++)
+      {
+        pixel = pixels[row][col];
+        pixel.setRed(pixel.getRed() * 3);
+      }
+    }
   }
   
   /** Method to highlight the edges of object in a picture by checking large changes in color */
-  public void edgeDetection()
+   public void edgeDetection()
   {
-    //add your code here
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    Pixel[][] pixels = this.getPixels2D();
+    for (int row = 0; row < pixels.length - 1; row++)
+    {
+      for (int col = 0; 
+           col < pixels[0].length-1; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][col+1];
+        topPixel = pixels[row][col];
+        bottomPixel = pixels[row + 1][col];
+        if (leftPixel.colorDistance(rightPixel.getColor()) > 15 ||
+            topPixel.colorDistance(bottomPixel.getColor()) > 15)
+          leftPixel.setColor(Color.BLACK);
+        else
+          leftPixel.setColor(Color.WHITE);
+      }
+    }
   }
   
   
   /** Method to mirror the picture around a vertical line in the center of the picture from left to right */
   public void mirrorVertical()
   {
-    //add your code here
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    int width = pixels[0].length;
+    for (int row = 0; row < pixels.length; row++)
+    {
+      for (int col = 0; col < width / 2; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][width - 1 - col];
+        rightPixel.setColor(leftPixel.getColor());
+      }
+    }
   }
   
   /** Method to mirror around a diagonal line from bottom left to top right */
   public void mirrorDiagonal()
   {
-    //add your code here
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel topRightPixel = null;
+    Pixel bottomLeftPixel = null;
+    int max = pixels.length;
+    if (pixels[0].length < max)
+      max = pixels[0].length;
+    for (int row = 1; row < max; row++)
+    {
+      for (int col = 0; col < row; col++)
+      {
+        topRightPixel = pixels[row][col];
+        bottomLeftPixel = pixels[col][row];
+        bottomLeftPixel.setColor(topRightPixel.getColor());
+      }
+    }
   }
     
   /** Method to mirror just part of a picture of a temple to fix the broken part of the temple */
-  public void mirrorTemple()
+   public void mirrorTemple()
   {
-    //add your code here
+    int mirrorPoint = 276;
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    int count = 0;
+    Pixel[][] pixels = this.getPixels2D();
+    for (int row = 27; row < 97; row++)
+    {
+      for (int col = 13; col < mirrorPoint; col++)
+      {
+        count++;
+        leftPixel = pixels[row][col];      
+        rightPixel = pixels[row]                       
+                         [mirrorPoint - col + mirrorPoint];
+        rightPixel.setColor(leftPixel.getColor());
+      }
+    }
+    System.out.println(count);
   }
   
   /** Method to mirror just part of a picture of a snowman, so that it will have four arms instead of two */
   public void mirrorArms()
   {
-    //add your code here
+    int mirrorPoint = 193;
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    Pixel[][] pixels = this.getPixels2D();
+    for (int row = 158; row < mirrorPoint; row++)
+    {
+      for (int col = 103; col < 170; col++)
+      {
+        topPixel = pixels[row][col];      
+        bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+        bottomPixel.setColor(topPixel.getColor());
+      }
+    }
+    int mirrorPoint2 = 198;
+    Pixel topPixel2 = null;
+    Pixel bottomPixel2 = null;
+    for (int row = 171; row < mirrorPoint2; row++)
+    {
+      for (int col = 239; col < 294; col++)
+      {
+        topPixel2 = pixels[row][col];      
+        bottomPixel2 = pixels[mirrorPoint2 - row + mirrorPoint2][col];
+        bottomPixel2.setColor(topPixel2.getColor());
+      }
+    }
   }
-  
+    
   /** Method to copy the gull in the picture to another location of the picture */
   public void copyGull()
   {
-    //add your code here
+    int mirrorPoint = 345;
+    Pixel rightPixel = null;
+    Pixel leftPixel = null;
+    Pixel[][] pixels = this.getPixels2D();   
+    for (int row = 235; row < 323; row++)
+    {
+      for (int col = 238; col < mirrorPoint; col++)
+      {
+        rightPixel = pixels[row][col];      
+        leftPixel = pixels[row][mirrorPoint - col + mirrorPoint/3];
+        leftPixel.setColor(rightPixel.getColor());
+      }
+    }
   }
   
   /** Method to create a collage of several pictures */
+  public void copy(Picture fromPic, int startRow, int startCol)
+  {
+    Pixel fromPixel = null;
+    Pixel toPixel = null;
+    Pixel[][] toPixels = this.getPixels2D();
+    Pixel[][] fromPixels = fromPic.getPixels2D();
+    for (int fromRow = 0, toRow = startRow; 
+         fromRow < fromPixels.length &&
+         toRow < toPixels.length; 
+         fromRow++, toRow++)
+    {
+      for (int fromCol = 0, toCol = startCol; 
+           fromCol < fromPixels[0].length &&
+           toCol < toPixels[0].length;  
+           fromCol++, toCol++)
+      {
+        fromPixel = fromPixels[fromRow][fromCol];
+        toPixel = toPixels[toRow][toCol];
+        toPixel.setColor(fromPixel.getColor());
+      }
+    }   
+  }
+  
   public void createCollage()
   {
-    //add your code here
+    Picture flower1 = new Picture("flower1.jpg");
+    Picture flower2 = new Picture("flower2.jpg");
+    this.copy(flower1,0,0);
+    this.copy(flower2,100,0);
+    this.copy(flower1,200,0);
+    Picture flowerNoBlue = new Picture(flower2);
+    flowerNoBlue.zeroBlue();
+    this.copy(flowerNoBlue,300,0);
+    this.copy(flower1,400,0);
+    this.copy(flower2,500,0);
+    this.mirrorVertical();
+    this.write("collage.jpg");
   }
    
   
   /** Method to replace the blue background with the pixels in the newBack picture
     * @param newBack the picture to copy from
     */
-  public void chromakey(Picture newBack)
-  {
-    //add your code here
+  public void chromakey( Picture newBack )
+    {
+    Pixel fromPixel = null;
+    Pixel toPixel = null;
+    Pixel[][] toPixels = this.getPixels2D();
+    Pixel[][] fromPixels = newBack.getPixels2D();
+    for ( int row = 0; row < this.getHeight(); row++ )
+    {
+      for ( int col = 0; col < this.getWidth(); col++ )
+      {
+        toPixel = toPixels[row][col];
+        if ( toPixel.getBlue() > toPixel.getRed() )
+        {
+          fromPixel = fromPixels[row][col];
+          toPixel.setColor( fromPixel.getColor() );
+        }
+      }
+    }
   }
   
   /** Method to decode a message hidden in the red value of the current picture */
-  public void decode()
-  {
-    //add your code here
+  public Picture decode()
+    {
+    Pixel[][] pixels = this.getPixels2D();
+    int height = this.getHeight();
+    int width = this.getWidth();
+    Pixel currPixel = null;
+    Pixel messagePixel = null;
+    Picture messagePicture = new Picture( height, width );
+    Pixel[][] messagePixels = messagePicture.getPixels2D();
+    int count = 0;
+    for ( int row = 0; row < this.getHeight(); row++ )
+    {
+      for ( int col = 0; col < this.getWidth(); col++ )
+      {
+        currPixel = pixels[row][col];
+        messagePixel = messagePixels[row][col];
+        if ( currPixel.getRed() % 2 == 1 )
+        {
+          messagePixel.setColor( Color.BLACK );
+          count++;
+        }
+      }
+    }
+    System.out.println(count);
+    return messagePicture;
   }
   
   /** Hide a black and white message in the current picture by changing the green to even and then setting it to odd if the message pixel is black 
@@ -210,6 +390,28 @@ public class Picture extends SimplePicture
     */
   public void encodeGreen(Picture messagePict)
   {
-    //add your code here
+    Pixel[][] messagePixels = messagePict.getPixels2D();
+    Pixel[][] currPixels = this.getPixels2D();
+    Pixel currPixel = null;
+    Pixel messagePixel = null;
+    int count = 0;
+    for ( int row = 0; row < this.getHeight(); row++ )
+    {
+      for ( int col = 0; col < this.getWidth(); col++ )
+      {
+        currPixel = currPixels[row][col];
+        if (currPixel.getGreen() % 2 == 1 )
+          currPixel.setGreen(currPixel.getGreen() - 1 );
+        messagePixel = messagePixels[row][col];
+        if (messagePixel.colorDistance( Color.BLACK ) < 50 )
+        {
+          currPixel.setGreen( currPixel.getGreen() + 1 );
+          count++;
+        }
+      }
+    }
+    System.out.println( count );
   }
 } 
+
+ 
