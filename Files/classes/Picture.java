@@ -10,8 +10,7 @@ import java.util.List; // resolves problem with java.awt.List and java.util.List
  * A class that represents a picture.  This class inherits from 
  * SimplePicture and allows the student to add functionality to
  * the Picture class.  
- * 
- * @author Barbara Ericson ericson@cc.gatech.edu
+ *
  */
 public class Picture extends SimplePicture 
 {
